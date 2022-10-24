@@ -31,10 +31,7 @@ jobs:
           npm config set user github-actions
           npm config set email github-actions@github.com
 
-      - name: Bump version
-        run: |
-          npm version v2.0.0 # v2.0.0 is an example
-
-      - name: Commit changes
-        run: |
-          git push origin v2.0.0 # v2.0.0 is an example
+      - name: Bump version nd commit changes
+        run: | 
+          next_version="$(npm version prerelease --preid preview)"
+          git push origin ${next_version}
