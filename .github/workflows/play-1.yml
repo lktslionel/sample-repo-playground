@@ -43,6 +43,14 @@ jobs:
 
           git add README.md
 
+          git status
+
           git commit -m "chore: new pre-release v${next_version}"
+
+          git log --oneline --decorate --graph
+
           git tag v${next_version}
+
+          git log --oneline --decorate --graph
+          
           git push origin v${next_version}
