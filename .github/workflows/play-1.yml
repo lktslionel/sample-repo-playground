@@ -33,5 +33,16 @@ jobs:
 
       - name: Bump version nd commit changes
         run: | 
-          next_version="$(npm version prerelease --preid preview)"
-          git push origin ${next_version}
+          #next_version="$(npm version prerelease --preid preview)"
+
+          next_version=$(docker run --rm alpine/semver semver -c -i preminor --preid=rc ${{ env.COMPONENT_VERSION }})
+          echo "release: v${next_version}" >> README.md
+          
+          echo "release: v${next_version}" >> README.md
+          echo "::notice title=Next Version::v${next_version}"
+
+          git add README.md
+
+          git commit -m "chore: new pre-release v${next_version}"
+          git tag v${next_version}
+          git push origin v${next_version}
