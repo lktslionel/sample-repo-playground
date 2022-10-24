@@ -35,7 +35,7 @@ jobs:
         run: | 
           #next_version="$(npm version prerelease --preid preview)"
 
-          next_version=$(docker run --rm alpine/semver semver -c -i preminor --preid=rc ${{ env.COMPONENT_VERSION }})
+          next_version=$(docker run --rm alpine/semver semver -c -i preminor --preid=preview ${{ env.COMPONENT_VERSION }})
           echo "release: v${next_version}" >> README.md
           
           echo "release: v${next_version}" >> README.md
