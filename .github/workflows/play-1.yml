@@ -1,0 +1,40 @@
+name: Play | Create tag/branch within workflows
+
+
+on: 
+  workflow_dispatch:
+    inputs: 
+      version: 
+        type: string
+        description: 'Version you want to deliver. Eg: X.Y.z-rc.N'
+        required: true
+
+
+env:
+  COMPONENT_VERSION: ${{ inputs.version }}
+jobs:
+
+  deliver:
+    name: Deliver
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: 'v${{ env.COMPONENT_VERSION }}'
+
+      - name: Config Git and NPM
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          npm config set user github-actions
+          npm config set email github-actions@github.com
+
+      - name: Bump version
+        run: |
+          npm version v2.0.0 # v2.0.0 is an example
+
+      - name: Commit changes
+        run: |
+          git push origin v2.0.0 # v2.0.0 is an example
