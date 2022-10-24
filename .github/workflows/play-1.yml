@@ -52,5 +52,6 @@ jobs:
           git tag v${next_version}
 
           git log --oneline --decorate --graph
+          git show HEAD
           
           git push origin v${next_version}
