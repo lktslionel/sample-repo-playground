@@ -1,0 +1,19 @@
+{
+  "name": "ari-dit-cicd-gh-workflows-playground",
+  "version": "2.0.0",
+  "description": "ARI • DTI • CICD GitHub Workflows Playground",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/auchan-retail-international/ari-dit-cicd-gh-workflows-playground.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/auchan-retail-international/ari-dit-cicd-gh-workflows-playground/issues"
+  },
+  "homepage": "https://github.com/auchan-retail-international/ari-dit-cicd-gh-workflows-playground#readme"
+}
