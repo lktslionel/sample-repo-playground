@@ -8,7 +8,10 @@ on:
         description: 'Version you want to deliver. Eg: X.Y.z-rc.N'
         required: true
 
-
+permissions:
+  contents: write
+  actions: write
+  
 env:
   VERSION: ${{ inputs.version }}
 
