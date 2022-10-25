@@ -39,8 +39,8 @@ jobs:
         run: |
           # Stage the file, commit and push
           git checkout -b release/v${{ env.VERSION }}
-          git add time.txt
-          git commit -m "new date commit"
-          git tag v${{ env.VERSION }}-released
+          #git add time.txt
+          #git commit -m "new date commit"
+          #git tag v${{ env.VERSION }}-released
           git push origin release/v${{ env.VERSION }}  
-          git push origin v${{ env.VERSION }}-released
+          #git push origin v${{ env.VERSION }}-released
