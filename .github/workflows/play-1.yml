@@ -1,9 +1,8 @@
-name: Play | Create tag/branch within workflows
+name: Commit check
 
-
-on: 
+on:
   workflow_dispatch:
-    inputs: 
+    inputs:
       version: 
         type: string
         description: 'Version you want to deliver. Eg: X.Y.z-rc.N'
@@ -11,47 +10,35 @@ on:
 
 
 env:
-  COMPONENT_VERSION: ${{ inputs.version }}
+  VERSION: ${{ inputs.version }}
+
 jobs:
-
-  deliver:
-    name: Deliver
+  date:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      # Checkout the branch
+      - name: checkout
         uses: actions/checkout@v2
         with:
-          ref: 'v${{ env.COMPONENT_VERSION }}'
+          ref: v${{ env.VERSION }}
 
-      - name: Config Git and NPM
+      - name: save current date
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          npm config set user github-actions
-          npm config set email github-actions@github.com
-
-      - name: Bump version nd commit changes
-        run: | 
-          #next_version="$(npm version prerelease --preid preview)"
-
-          next_version=$(docker run --rm alpine/semver semver -c -i preminor --preid=preview ${{ env.COMPONENT_VERSION }})
-          echo "release: v${next_version}" >> README.md
+          # do some operation that changes a file in the git repo
+          date >> time.txt
           
-          echo "release: v${next_version}" >> README.md
-          echo "::notice title=Next Version::v${next_version}"
-
-          git add README.md
-
-          git status
-
-          git commit -m "chore: new pre-release v${next_version}"
-
-          git log --oneline --decorate --graph
-
-          git tag v${next_version}
-
-          git log --oneline --decorate --graph
-          git show HEAD
+      - name: setup git config
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           
-          git push origin v${next_version}
+      - name: commit
+        run: |
+          # Stage the file, commit and push
+          git checkout -b release/v${{ env.VERSION }}  
+          git add time.txt
+          git commit -m "new date commit"
+          git tag v${{ env.VERSION }}-released
+          git push origin release/v${{ env.VERSION }}  
+          git push origin v${{ env.VERSION }}-released
