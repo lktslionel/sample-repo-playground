@@ -29,11 +29,11 @@ jobs:
           # do some operation that changes a file in the git repo
           date >> time.txt
           
-#      - name: setup git config
-#        run: |
-#          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-#          git config user.name "github-actions"
-#          git config user.email "github-actions@github.com"
+      - name: setup git config
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           
       - name: commit
         run: |
