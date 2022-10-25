@@ -19,24 +19,26 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
         with:
+          ref: v${{ env.VERSION }}
+          token: ${{ secrets.PAT }}
           fetch-depth: 0
 
       - name: save current date
         run: |
-          git checkout -b release/v${{ env.VERSION }}  v${{ env.VERSION }}
+          #git checkout -b release/v${{ env.VERSION }}  v${{ env.VERSION }}
           # do some operation that changes a file in the git repo
           date >> time.txt
           
-      - name: setup git config
-        run: |
-          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+#      - name: setup git config
+#        run: |
+#          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+#          git config user.name "github-actions"
+#          git config user.email "github-actions@github.com"
           
       - name: commit
         run: |
           # Stage the file, commit and push
-          
+          git checkout -b release/v${{ env.VERSION }}
           git add time.txt
           git commit -m "new date commit"
           git tag v${{ env.VERSION }}-released
