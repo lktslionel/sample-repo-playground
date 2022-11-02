@@ -1,0 +1,10 @@
+name: Caller Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call:
+    uses: auchan-retail-international/ari-dit-cicd-sample-workflow-callee/.github/workflows/callee.yml@main
+    with:
+      name: lktslionel
