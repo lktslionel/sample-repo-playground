@@ -30,11 +30,10 @@ jobs:
     needs: 
     - job1
     runs-on: [self-hosted, Linux, X64, docker]
-    
+    env:
+      COMMIT_SHA: ${{ needs.job1.outputs.job1-commit-sha }}
     steps:
     - name: Show job 1 commit sha
-      env:
-        COMMIT_SHA: ${{ needs.job1.outputs.job1-commit-sha }}
       run: |
         echo "::notice title=Commit SHA from job2::${{ env.COMMIT_SHA }}"
         
