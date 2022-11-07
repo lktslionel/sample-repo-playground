@@ -16,11 +16,21 @@ jobs:
         echo "::debug ::Create a summary file"
         echo ": ${{ github.sha }}" >> summary.txt
 
+    - uses: actions/upload-artifact@v3
+      with:
+        name: summary
+        path: |
+          summary.txt
+
   job2:
     needs: 
     - job1
     runs-on: [self-hosted, Linux, X64, docker]
     steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: summary
+
     - name: Check summary file
       run: |
         echo "::warning ::Checking summary file"
