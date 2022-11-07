@@ -13,7 +13,8 @@ jobs:
       uses: actions/checkout@v3
 
     - run: |
-        echo "Branch name is: ${{ github.ref_name }}" >> summary.txt
+        echo "::debug ::Create a summary file"
+        echo ": ${{ github.sha }}" >> summary.txt
 
   job2:
     needs: 
@@ -22,9 +23,10 @@ jobs:
     steps:
     - name: Check summary file
       run: |
+        echo "::warning ::Checking summary file"
         if [[ -f summary.txt ]]; then
-          echo "exists"
+          echo "::notice title=Commit SHA::$(cat summary.txt)"
         else
-          echo "not found"
+          echo "::error ::File not found"
           exit 1
         fi
