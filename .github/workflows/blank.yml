@@ -8,6 +8,8 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
+    outputs:
+      job1-commit-sha: ${{ steps.set-custom-outputs.outputs.commit-sha }} 
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -24,28 +26,15 @@ jobs:
       run: |
         echo "::notice title=Commit SHA::${{ steps.set-custom-outputs.outputs.commit-sha }}"
 
-    - uses: actions/upload-artifact@v3
-      with:
-        name: summary
-        path: |
-          summary.txt
-        retention-days: 1
-
   job2:
     needs: 
     - job1
     runs-on: [self-hosted, Linux, X64, docker]
+    
     steps:
-    - uses: actions/download-artifact@v3
-      with:
-        name: summary
-
-    - name: Check summary file
+    - name: Show job 1 commit sha
+      env:
+        COMMIT_SHA: ${{ needs.job1.outputs.job1-commit-sha }}
       run: |
-        echo "::warning ::Checking summary file"
-        if [[ -f summary.txt ]]; then
-          echo "::notice title=Commit SHA::$(cat summary.txt)"
-        else
-          echo "::error ::File not found"
-          exit 1
-        fi
+        echo "::notice title=Commit SHA from job2::${{ env.COMMIT_SHA }} 
+
