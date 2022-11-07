@@ -19,9 +19,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-#    - run: |
-#        echo "::debug ::Create a summary file"
-#        echo ": ${{ github.sha }}" >> summary.txt
     - name: Set custom outputs
       id: set-custom-outputs
       run: |
