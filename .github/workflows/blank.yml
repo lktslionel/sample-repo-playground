@@ -12,15 +12,24 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - run: |
-        echo "::debug ::Create a summary file"
-        echo ": ${{ github.sha }}" >> summary.txt
+#    - run: |
+#        echo "::debug ::Create a summary file"
+#        echo ": ${{ github.sha }}" >> summary.txt
+    - name: Set custom outputs
+      id: set-custom-outputs
+      run: |
+        echo "commit-sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+
+    - name: Show outputs
+      run: |
+        echo "::notice title=Commit SHA::${{ steps.set-custom-outputs.outputs.commit-sha }}"
 
     - uses: actions/upload-artifact@v3
       with:
         name: summary
         path: |
           summary.txt
+        retention-days: 1
 
   job2:
     needs: 
