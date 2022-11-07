@@ -36,5 +36,8 @@ jobs:
       env:
         COMMIT_SHA: ${{ needs.job1.outputs.job1-commit-sha }}
       run: |
-        echo "::notice title=Commit SHA from job2::${{ env.COMMIT_SHA }} 
+        echo "::notice title=Commit SHA from job2::${{ env.COMMIT_SHA }}"
+        
+    - name: Show envs
+      run: env | sort 
 
