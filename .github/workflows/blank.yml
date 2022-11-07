@@ -12,6 +12,6 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-    - name: Build
+    - name: Build 2
       run: |
         sleep 60
