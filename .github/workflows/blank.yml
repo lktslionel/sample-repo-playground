@@ -16,6 +16,8 @@ jobs:
         echo "Branch name is: ${{ github.ref_name }}" >> summary.txt
 
   job2:
+    needs: 
+    - job1
     runs-on: [self-hosted, Linux, X64, docker]
     steps:
     - name: Check summary file
