@@ -4,8 +4,10 @@ on:
   push:
     branches: 
     - main
-    paths-ignore: 
-    - .github/workflows/*
+#    paths-ignore: 
+#    - .github/workflows/*
+    paths: 
+    - src/*
     
   workflow_dispatch:
     
