@@ -4,10 +4,6 @@ on:
   push:
     branches: 
     - main
-#    paths-ignore: 
-#    - .github/workflows/*
-    paths: 
-    - src/*
     
   workflow_dispatch:
     
@@ -15,32 +11,7 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    outputs:
-      job1-commit-sha: ${{ steps.set-custom-outputs.outputs.commit-sha }} 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Set custom outputs
-      id: set-custom-outputs
+    - name: Build
       run: |
-        echo "commit-sha=${{ github.sha }}" >> $GITHUB_OUTPUT
-
-    - name: Show outputs
-      run: |
-        echo "::notice title=Commit SHA::${{ steps.set-custom-outputs.outputs.commit-sha }}"
-
-  job2:
-    needs: 
-    - job1
-    runs-on: [self-hosted, Linux, X64, docker]
-    env:
-      COMMIT_SHA: ${{ needs.job1.outputs.job1-commit-sha }}
-    steps:
-    - name: Show job 1 commit sha
-      run: |
-        echo "::notice title=Commit SHA from job2::${{ env.COMMIT_SHA }}"
-        
-    - name: Show envs
-      run: env | sort 
-
+        sleep 60
