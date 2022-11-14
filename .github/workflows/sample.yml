@@ -14,7 +14,8 @@ env:
   ACTIONS_STEP_DEBUG: true
 
 jobs:
-  date:
+  sample:
+		name: Sample
     runs-on: ubuntu-latest
     steps:
       # Checkout the branch
