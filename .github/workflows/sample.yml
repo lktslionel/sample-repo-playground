@@ -15,7 +15,7 @@ env:
 
 jobs:
   sample:
-		name: Sample
+    name: Sample
     runs-on: ubuntu-latest
     steps:
       # Checkout the branch
