@@ -1,2 +1,2 @@
 # gh-workflows-playground
-itHub Workflows Playground
+GitHub Workflows Playground
