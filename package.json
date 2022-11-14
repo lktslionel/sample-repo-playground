@@ -1,6 +1,6 @@
 {
   "name": "ari-dit-cicd-gh-workflows-playground",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "ARI • DTI • CICD GitHub Workflows Playground",
   "main": "index.js",
   "scripts": {
