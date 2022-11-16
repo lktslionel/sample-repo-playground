@@ -1,0 +1,47 @@
+name: Commit check
+
+on:
+  workflow_dispatch:
+    inputs:
+      version: 
+        type: string
+        description: 'Version you want to deliver. Eg: X.Y.z-rc.N'
+        required: true
+
+
+env:
+  VERSION: ${{ inputs.version }}
+  ACTIONS_RUNNER_DEBUG: true
+  ACTIONS_STEP_DEBUG: true
+
+jobs:
+  date:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the branch
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          ref: v${{ env.VERSION }}
+
+      - name: save current date
+        run: |
+          # do some operation that changes a file in the git repo
+          date >> time.txt
+          
+      - name: setup git config
+        run: |
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          
+      - name: commit
+        run: |
+          rev="$(echo $RANDOM | md5sum | head -c 6)"
+          # Stage the file, commit and push
+          git checkout -b release/v${{ env.VERSION }}-rev.${rev}
+          git add time.txt
+          git commit -m "new date commit"
+          git tag v${{ env.VERSION }}-rev.${rev}
+          git push origin release/v${{ env.VERSION }}-rev.${rev}
+          git push origin v${{ env.VERSION }}-rev.${rev}
